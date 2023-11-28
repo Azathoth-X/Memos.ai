@@ -14,10 +14,10 @@ show_pages(
         Page("home.py", "Homepage", "🏠"),
         Section("My Notes", icon="📄"),
         # Pages after a section will be indented
-        Page("view.py", "Show Notes", "📃"),
-        Page("add.py", "New Note", "✍"),
-        Page("edit.py", "Edit My Note", "📝"),
-        Page("chat.py", "Memos AI", "💬",in_section=False)
+        Page("pages/view.py", "Show Notes", "📃"),
+        Page("pages/add.py", "New Note", "✍"),
+        Page("pages/edit.py", "Edit My Note", "📝"),
+        Page("pages/chat.py", "Memos AI", "💬",in_section=False)
     ]
 )
 
