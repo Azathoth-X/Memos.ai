@@ -39,7 +39,6 @@ def add_note(notes):
             st.warning("Please enter both title and content.")
 
 def edit_note(notes):
-    
     if not notes:
         st.warning("No notes available to edit.")
         return
@@ -48,19 +47,28 @@ def edit_note(notes):
 
     selected_note_title = st.selectbox("Select a note to edit:", note_titles)
 
-    selected_note = next((note for note in notes if note['title'] == selected_note_title), None)
-    st.divider()
-    st.subheader(f"{selected_note['title']} \n")
-    st.markdown(f"{selected_note['content']}")
-    st.divider()
-    new_title = st.text_input("New Title:", value=selected_note['title'])
-    new_content = st.text_area("New Content:", value=selected_note['content'])
+    selected_note_index = next((index for index, note in enumerate(notes) if note['title'] == selected_note_title), None)
 
-    if st.button("Save Changes"):
-        notes[selected_note]['title'] = new_title
-        notes[selected_note]['content'] = new_content
-        save_notes(notes)
-        st.success("Changes saved successfully!")
+    if selected_note_index is not None:
+        selected_note = notes[selected_note_index]
+        st.divider()
+        st.subheader(f"{selected_note['title']} \n")
+        st.markdown(f"{selected_note['content']}")
+        st.divider()
+        new_title = st.text_input("New Title:", value=selected_note['title'])
+        new_content = st.text_area("New Content:", value=selected_note['content'])
+
+        if st.button("Save Changes"):
+            # Update the selected note with the edited values
+            notes[selected_note_index]['title'] = new_title
+            notes[selected_note_index]['content'] = new_content
+
+            # Save the updated notes to the file
+            save_notes(notes)
+            st.success("Changes saved successfully!")
+    else:
+        st.warning(f"Note with title '{selected_note_title}' not found.")
+
 
 
 
