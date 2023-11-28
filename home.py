@@ -18,7 +18,8 @@ show_pages(
         Page("pages/view.py", "Show Notes", "📃"),
         Page("pages/add.py", "New Note", "✍"),
         Page("pages/edit.py", "Edit My Note", "📝"),
-        Page("pages/chat.py", "Memos AI", "💬",in_section=False)
+        Page("pages/chat.py", "Memos AI", "💬",in_section=False),
+        Page("pages/summary.py","Summarizer","🤏")
     ]
 )
 
