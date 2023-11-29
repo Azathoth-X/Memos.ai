@@ -5,8 +5,6 @@ st.set_page_config(page_title="Memos.Ai",page_icon=":memo:")
 
 st.title("Welcome to Memos.Ai",anchor="")
 
-
-
 add_indentation()
 
 
@@ -24,4 +22,8 @@ show_pages(
 )
 
 
-st.write()
+st.write("A Note Taking App with summarization and querry")
+st.write("Made by:")
+st.markdown('Mehul Gupta 102103553\n')
+st.write("Prikshit Rana 102013800\n")
+st.write("Pranav Gupta 102013814\n")

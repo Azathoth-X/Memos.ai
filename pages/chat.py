@@ -3,8 +3,8 @@ import streamlit as st
 import json
 import os
 from dotenv import load_dotenv,dotenv_values
-from langchain.vectorstores import Qdrant
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores.qdrant import Qdrant
+from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 import qdrant_client
 import os
 from langchain.text_splitter import CharacterTextSplitter
@@ -24,12 +24,15 @@ collection_config = qdrant_client.http.models.VectorParams(
 )
 
 # st.write(collection_config)
-# client.recreate_collection(
-#     collection_name=os.getenv("QDRANT_COLLECTION"),
-#     vectors_config=collection_config,
-# )
+client.recreate_collection(
+    collection_name=os.getenv("QDRANT_COLLECTION"),
+    vectors_config=collection_config,
+)
 
-embeddings = OpenAIEmbeddings()
+embeddings = HuggingFaceInferenceAPIEmbeddings(
+    api_key=os.getenv("HF_API_KEY"),
+    model_name="BAAI/bge-large-en-v1.5"
+)
 
 vectorstore = Qdrant(
     client=client,
@@ -54,4 +57,9 @@ def vectordata():
     except FileNotFoundError:
         st.error("Please add notes to continue")
     
-    get_chunks(notes)
+    if st.button("Load Notes to AI"):
+        text=[]
+        for note in notes:
+            text=note['content']
+        chunks=get_chunks(text)
+        vectorstore.add_texts(chunks)

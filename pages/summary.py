@@ -4,6 +4,8 @@ from st_pages import add_indentation
 import requests
 from dotenv import load_dotenv
 import os
+
+st.set_page_config(page_title="Summarize Notes",page_icon=":memo:")
 load_dotenv()
 add_indentation()
 
